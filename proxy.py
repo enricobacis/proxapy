@@ -19,5 +19,6 @@ def proxy(url):
                             params=request.args,
                             headers=request.headers)
 
-    headers = response.raw.headers.items()
-    return Response(response.iter_content(CHUNK_SIZE), headers=headers)
+    return Response(response.raw, # direct file interface
+                    headers=response.raw.headers.items(),
+                    direct_passthrough=True)
