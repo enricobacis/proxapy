@@ -19,5 +19,5 @@ def proxy(url):
                             params=request.args,
                             headers=request.headers)
 
-    return Response(response.iter_content(CHUNK_SIZE),
-                    headers=dict(response.headers))
+    headers = response.raw.headers.items()
+    return Response(response.iter_content(CHUNK_SIZE), headers=headers)
