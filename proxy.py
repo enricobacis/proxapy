@@ -1,3 +1,4 @@
+from werkzeug.datastructures import MultiDict
 from flask import Flask, Response, request
 import requests
 
@@ -6,7 +7,7 @@ app = Flask(__name__)
 
 @app.before_request
 def before_request():
-    headers = dict(request.headers)
+    headers = MultiDict(request.headers.items())
     del headers['Host']
     headers['Content-Length'] = headers.get('Content-Length', '') or 0
     setattr(request, 'headers', headers)
