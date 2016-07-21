@@ -1,10 +1,14 @@
-.PHONY: all install run
+.PHONY: all debug install run
 
 VENV = venv
 FLASK_APP = proxy.py
+FLASK_DEBUG = 0
 
 all run: install
-	env FLASK_APP=$(FLASK_APP) $(VENV)/bin/flask run
+	env FLASK_DEBUG=$(FLASK_DEBUG) FLASK_APP=$(FLASK_APP) $(VENV)/bin/flask run
+
+debug: FLASK_DEBUG=1
+debug: run
 
 $(VENV):
 	virtualenv $(VENV)
