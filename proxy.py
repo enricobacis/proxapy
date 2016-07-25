@@ -1,30 +1,29 @@
 from werkzeug.datastructures import MultiDict
-from flask import Flask, Response, request, redirect, url_for
+from flask import Flask, Response, request
+from werkzeug.routing import Rule
 import requests
 
-ALLOWED_HEADERS = ['Referer']
 app = Flask(__name__)
+app.url_map.add(Rule('/<path:url>', endpoint='root'))
+BLOCK_HEADERS = ['Host', 'Content-Length']
 
-def sanitize_headers(headers):
-    return MultiDict((k, v) for k, v in headers.items()
-                            if k in ALLOWED_HEADERS)
 
-@app.route('/proxy/<path:url>')
-def proxy(url):
-    response = requests.get('http://' + url,
-                            stream=True,
-                            params=request.args,
-                            headers=sanitize_headers(request.headers))
+@app.endpoint('root')
+def root(url):
+    print('params', request.args)
+    print('headers', {key: val for key, val in request.headers if key != 'Host'})
+    print('data', request.get_data())
+    print('cookies', request.cookies)
+    response = requests.request(
+            method=request.method,
+            url='http://' + url,
+            stream=True,
+            params=request.args,
+            headers={k:v for k,v in request.headers if k not in BLOCK_HEADERS},
+            data=request.get_data(),
+            cookies=request.cookies)
 
     return Response(response.raw, # direct file interface
                     headers=response.raw.headers.items(),
                     status=response.status_code,
                     direct_passthrough=True)
-
-@app.route('/<path:url>')
-def root(url):
-    if 'Referer' in request.headers:
-        url = request.headers['Referer'] + '/' + url
-    else:
-        url = url_for('proxy', url=url)
-    return redirect(url)
