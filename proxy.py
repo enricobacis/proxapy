@@ -10,10 +10,6 @@ BLOCK_HEADERS = ['Host', 'Content-Length']
 
 @app.endpoint('root')
 def root(url):
-    print('params', request.args)
-    print('headers', {key: val for key, val in request.headers if key != 'Host'})
-    print('data', request.get_data())
-    print('cookies', request.cookies)
     response = requests.request(
             method=request.method,
             url='http://' + url,
