@@ -1,7 +1,3 @@
-# Flask Proxy
+# Proxapy
 
-Simple single HTTP request Flask proxy
-
-## TODO
-
-* change cookies domain
+Simple API proxy that uses Flask/requests/gunicorn.
