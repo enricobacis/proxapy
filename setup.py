@@ -1,13 +1,13 @@
 from setuptools import setup
 
-with open('README.md') as README:
+with open('README.rst') as README:
     long_description = README.read()
 
 with open('requirements.txt') as f:
     install_requires = f.read().splitlines()
 
 setup(name='proxapy',
-      version='0.1.1',
+      version='0.1.2',
       description='Simple API proxy that uses Flask/requests/gunicorn.',
       long_description=long_description,
       install_requires=install_requires,
