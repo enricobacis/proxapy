@@ -4,7 +4,7 @@ with open('README.rst') as README:
     long_description = README.read()
 
 setup(name='proxapy',
-      version='0.1.2',
+      version='0.1.3',
       description='Simple API proxy that uses Flask/requests/gunicorn.',
       long_description=long_description,
       install_requires=[
