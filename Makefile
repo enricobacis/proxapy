@@ -3,7 +3,7 @@
 VENV       = venv
 APP_PATH   = proxapy
 APP_MODULE = proxapy.proxapy:app
-CONFIG     = config/gunicorn
+CONFIG     = proxapy/config.py
 
 all run: install
 	$(VENV)/bin/gunicorn -c $(CONFIG) --pythonpath $(APP_PATH) $(APP_MODULE)
