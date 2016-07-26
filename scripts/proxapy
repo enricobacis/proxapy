@@ -5,4 +5,4 @@ APP_PATH=${MODULE%/*}
 APP_MODULE='proxapy.proxapy:app'
 CONFIG_FILE="$APP_PATH/proxapy/config.py"
 
-gunicorn -c $CONFIG_FILE --pythonpath $APP_PATH $APP_MODULE
+gunicorn -c $CONFIG_FILE --pythonpath $APP_PATH $APP_MODULE "$@"
