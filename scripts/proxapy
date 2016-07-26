@@ -1,0 +1,7 @@
+#!/bin/bash
+
+APP_PATH=`python -c 'import proxapy; import os.path; print(os.path.dirname(os.path.realpath(proxapy.__file__)))'`
+APP_MODULE='proxapy:app'
+CONFIG_FILE="$APP_PATH/config/gunicorn"
+
+gunicorn -c $CONFIG_FILE --pythonpath $APP_PATH $APP_MODULE
