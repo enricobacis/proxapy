@@ -1,11 +1,12 @@
 .PHONY: all install run
 
 VENV       = venv
-APP_MODULE = proxy:app
-CONFIG     = config.py
+APP_PATH   = proxapy
+APP_MODULE = proxapy.proxapy:app
+CONFIG     = config/gunicorn.py
 
 all run: install
-	$(VENV)/bin/gunicorn -c $(CONFIG) $(APP_MODULE)
+	$(VENV)/bin/gunicorn -c $(CONFIG) --pythonpath $(APP_PATH) $(APP_MODULE)
 
 $(VENV):
 	virtualenv $(VENV)
