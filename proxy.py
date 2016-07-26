@@ -19,7 +19,8 @@ def root(url):
             data=request.get_data(),
             cookies=request.cookies)
 
-    return Response(response.raw, # direct file interface
-                    headers=response.raw.headers.items(),
-                    status=response.status_code,
-                    direct_passthrough=True)
+    return Response(
+            response.raw, # direct file interface
+            headers=response.raw.headers.items(),
+            status=response.status_code,
+            direct_passthrough=True)
